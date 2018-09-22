@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <form id="gform" 
+            name="historyForm" 
+            class="alert maint-background" 
+            novalidate>
+
+            <div class="alert-tabHeading">{{ pageTitle }}</div>
+
+                <div>
+                    <div class="grid" 
+      					 ui-grid="gridOptions"
+      					 ui-grid-grouping>
+    				</div> 
+                </div>
+
+				<br>
+
+				<div>
+					<modal-dialog show='modalShown' width='400px' txtButtonDone='cancel'>
+						<h4 class="alert alert-info">{{ inventory.year }} {{ inventory.producer }} {{inventory.varietal}}</h4>
+
+						<div>
+      						Check the bottle you are opening:
+    					</div>
+
+						<div class="well">
+							<div layout="column" layout-align="center start">
+								<label ng-repeat="bottle in inventory.bottles">
+									<input type="checkbox" 
+										   data-checklist-model="cart.bottles" 
+										   data-checklist-value="bottle">&nbsp;&nbsp;{{bottle.location}}
+								</label>
+							</div>
+
+					        <div class="modal-footer text-center">
+	          					<button type="button" class="btn btn-success btn-default pull-left" ng-click="cart('checkout')">Drink</button>
+	                    		<button type="button" class="btn btn-primary" ng-click="cart('cancel')">Cancel</button>
+	        				</div>
+	        			</div>
+
+					</modal-dialog>
+				</div>
+
+            </div>                
+
+        </form>
+    </div>
+</div>

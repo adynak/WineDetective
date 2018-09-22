@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+
+        <br>
+
+        <div class="alert-tabHeading">{{ pageTitle }}</div>
+
+        <div class="content" style="font-weight: bold;font-size: 125%;">0-1 Years
+            <ul style="list-style-type:none;font-weight: normal;font-size: 85%;">
+                <li ng-repeat="vintage in fresh" ng-click="setSelected(vintage)">{{vintage.id}}</li>
+            </ul>
+        </div>
+
+        <div class="hspacer">&nbsp;</div>
+
+        <div class="content" style="font-weight: bold;font-size: 125%;">2-5 Years
+            <ul style="list-style-type:none;font-weight: normal;font-size: 85%;">
+                <li ng-repeat="vintage in young" ng-click="setSelected(vintage)">{{vintage.id}}</li>
+            </ul>
+        </div>
+
+        <div class="hspacer">&nbsp;</div>
+
+        <div class="content" style="font-weight: bold;font-size: 125%;">6-10 Years
+            <ul style="list-style-type:none;font-weight: normal;font-size: 85%;">
+                <li ng-repeat="vintage in mature" ng-click="setSelected(vintage)">{{vintage.id}}</li>
+            </ul>
+        </div>
+
+        <div class="hspacer">&nbsp;</div>
+
+        <div class="content" style="font-weight: bold;font-size: 125%;">10+ Years
+            <ul style="list-style-type:none;font-weight: normal;font-size: 85%;">
+                <li ng-repeat="vintage in old" ng-click="setSelected(vintage)">{{vintage.id}}</li>
+            </ul>
+        </div>
+
+    </div>
+</div>

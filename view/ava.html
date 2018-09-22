@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+
+        <br>
+
+        <div class="alert-tabHeading">{{ pageTitle }}</div>
+
+        <div class="content" style="font-weight: bold;font-size: 125%;">Oregon
+            <ul style="list-style-type:none;font-weight: normal;font-size: 85%;">
+                <li ng-repeat="ava in oregon" ng-click="setSelected(ava)">{{ava.id}}</li>
+            </ul>
+        </div>
+
+        <div class="hspacer">&nbsp;</div>
+
+        <div class="content" style="font-weight: bold;font-size: 125%;">Washington
+            <ul style="list-style-type:none;font-weight: normal;font-size: 85%;">
+                <li ng-repeat="ava in washington" ng-click="setSelected(ava)">{{ava.id}}</li>
+            </ul>
+        </div>
+
+        <div class="hspacer">&nbsp;</div>
+
+        <div class="content" style="font-weight: bold;font-size: 125%;">California
+            <ul style="list-style-type:none;font-weight: normal;font-size: 85%;">
+                <li ng-repeat="ava in california" ng-click="setSelected(ava)">{{ava.id}}</li>
+            </ul>
+        </div>
+
+        <div class="hspacer">&nbsp;</div>
+
+        <div class="content" style="font-weight: bold;font-size: 125%;">Other AVAs
+            <ul style="list-style-type:none;font-weight: normal;font-size: 85%;">
+                <li ng-repeat="ava in otherAva" ng-click="setSelected(ava)">{{ava.id}}</li>
+            </ul>
+        </div>
+
+    </div>
+</div>

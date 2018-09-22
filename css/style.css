@@ -1,0 +1,103 @@
+.wineDetective{ 
+	text-align: right;
+	color: #6ea4ac;
+	font-weight: bold;
+	font-size:20px;
+	padding-right: 20px;
+	/*margin-top : -50px;*/
+}
+
+.alert-heading {
+  color: #black;
+  background-color: #d4bf90;
+  border-color: #d4bf90;
+  text-align: center;
+  /*height: 24px;*/
+  padding: 2px;
+  font-size: 150%;
+  font-weight: bold;
+  margin-bottom: 5px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+body {
+	padding: 20px;
+}
+
+.maint-background {
+    color: #3a87ad;
+    background-color:hsl(200,65%,100%);
+    border-color: #bce8f1;
+}
+
+.alert-tabHeading {
+  color: #fff;
+  background-color: #aec0ab;
+  border-color: #7db0b8;
+  text-align: center;
+  /*height: 24px;*/
+  padding: 2px;
+  font-size: 150%;
+  margin-bottom: 5px; 
+  border: 1px solid transparent;
+  border-radius: 4px; 
+}
+
+.content {
+    float: left;
+    width: 20%;
+    border:none;
+    margin-left: 10px;
+}
+
+.hspacer {
+    width:5%;
+    float:left;
+}
+
+.ng-modal-overlay {
+  /* A dark translucent div that covers the whole screen */
+  position:absolute;
+  z-index:9999;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background-color:#000000;
+  opacity: 0.8;
+}
+.ng-modal-dialog {
+  /* A centered div above the overlay with a box shadow. */
+  z-index:10000;
+  position: absolute;
+  width: 50%; /* Default */
+
+  /* Center the dialog */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+
+  background-color: #fff;
+  box-shadow: 4px 4px 80px #000;
+}
+
+.ng-modal-dialog-content {
+  padding:10px;
+  text-align: left;
+}
+
+.ng-modal-close {
+  position: absolute;
+  top: 3px;
+  right: 5px;
+  padding: 5px;
+  cursor: pointer;
+  font-size: 120%;
+  display: inline-block;
+  font-weight: bold;
+  font-family: 'arial', 'sans-serif';
+}
+
