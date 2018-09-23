@@ -92,6 +92,9 @@ wineDetective.controller('wineGridController',
             treeRowHeaderAlwaysVisible: true,
             onRegisterApi: function(gridApi) {
                 $scope.gridApi = gridApi;
+                $scope.gridApi.grid.registerDataChangeCallback(function() {
+                    $scope.gridApi.treeBase.expandAllRows();
+                });
             }
         };
 

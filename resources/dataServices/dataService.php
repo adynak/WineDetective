@@ -25,7 +25,7 @@ if ($data->task == 'getAllVarietals') {
 
 
 	$sql  = '';
-	$sql .= 'SELECT info FROM winedetective.orders;';
+	$sql .= 'SELECT varietals FROM winedetective.varietal;';
 	$result = pg_query($conn, $sql);
 	$rows = pg_num_rows($result);
 	$json = '';
@@ -34,7 +34,7 @@ if ($data->task == 'getAllVarietals') {
 		echo "Error: " . $sql . '<br>' ;
 	} else {
         while ($row = pg_fetch_assoc($result)) {
-        	$json .= $row['info'];
+        	$json .= $row['varietals'];
         }
         $json = str_replace("}{", ",", $json);
 		echo $json;
