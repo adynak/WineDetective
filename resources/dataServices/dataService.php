@@ -1,13 +1,12 @@
 <?php
-// $fp = fopen('/Library/PostgreSQL/EnterpriseDB-ApachePhp/apache/www/CinCin/test.txt','a+');
-$fp = fopen('/Library/WebServer/Documents/wD/debug/test.txt','a+');
+$fp = fopen('/Library/WebServer/Documents/wineDetective/debug/test.txt','a+');
 fwrite($fp , 'hello world' . "\r\n");
 
 $debug = true ;
 
 $data = json_decode(file_get_contents("php://input"));
 
-$dbSchema = 'wineDetective';
+$dbSchema = 'winedetective';
 $dbPass   = 'Ad17934!';
 $pgPort   = 5432;
 
@@ -16,13 +15,8 @@ $conn = pg_connect($conn_string);
 
 
 if ($data->task == 'getAllVarietals') {
-  // $debug = true;
+  $debug = false;
   $json = '{ "red": [{"name": "Cabernet Franc"},{"name": "Cabernet Sauvignon"}],"white": [{"name": "Chardonnay"},{"name": "Sauvignon Blanc"}],"other": [{"name": "Champagne"},{"name": "Port"},{"name": "Rose"}]}';
-
-// echo $json;
-
-// return;
-
 
 	$sql  = '';
 	$sql .= 'SELECT varietals FROM winedetective.varietal;';
@@ -42,6 +36,52 @@ if ($data->task == 'getAllVarietals') {
 
 }
 
+else if ($data->task == 'init') {
+	$debug = false;
+	$sql  = '';
+	$sql .= 'SELECT  winedetective.build_varietal();';
+	$result = pg_query($conn, $sql);
+}
+
+else if ($data->task == 'getSelectedVarietal') {
+
+	$myArray = array();
+
+	$debug = true;
+	$sql  = '';
+	$sql .= "SELECT  * from winedetective.get_smart('$data->varietalName');";
+	$result = pg_query($conn, $sql);
+	while ($row = pg_fetch_assoc($result)) {
+          $myArray[] = $row;
+    }
+        echo json_encode($myArray);
+
+}
+
+else if ($data->task == 'validate') {
+	$debug = false;
+	$myArray    = array();
+
+	$sql  = "select row_to_json(t) ";
+	$sql .= "from (";
+	$sql .= "select * from $dbSchema.members where ";
+	$sql .= "email='"      . $data->email    . "' and ";
+	$sql .= "password = '" . $data->password . "'";
+	$sql .= ") t";
+
+	$result = pg_query($conn, $sql);
+	$row_cnt = pg_num_rows($result);
+	if ($row_cnt == 1) {
+		$row = pg_fetch_row($result);
+		$member = json_decode($row[0]);
+		$myArray['validated'] = true;
+		$myArray['member'] = $member;
+		echo json_encode($myArray);
+		$_SESSION["currentuser"] = $member->onlineid;
+	} else {
+		echo 'The email or password you have entered is invalid.';
+	}
+}
 	// $sql  = '';
 	// $sql .= 'SELECT info FROM winedetective.orders;';
 	// $result = pg_query($conn, $sql);

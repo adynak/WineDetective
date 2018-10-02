@@ -23,6 +23,17 @@ wineDetective.config(['$routeProvider', '$locationProvider',
     document.title = standards.productName;
 
     $routeProvider.
+        when('/login', 
+          {
+            templateUrl: 'wineDetective/view/login.html',
+            controller: 'LoginController',
+            task: 'getsessiondata'
+          }).
+        when('/tabs', 
+          {
+            templateUrl: 'wineDetective/view/tabs.html',
+            controller: 'tabsController'
+          }).
         when('/varietal', 
           {
             templateUrl: 'wineDetective/view/varietal.html',
@@ -43,7 +54,7 @@ wineDetective.config(['$routeProvider', '$locationProvider',
             templateUrl: 'wineDetective/view/wineGrid.html',
             controller: 'wineGridController'
           }).
-        otherwise({redirectTo: '/varietal'});
+        otherwise({redirectTo: '/login'});
         
         $locationProvider.html5Mode(true);
 }]);

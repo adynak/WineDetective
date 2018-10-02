@@ -12,10 +12,18 @@ wineDetective.controller('wineGridController',
 
         var wineData;
 
+        Data.getSelectedVarietal(selected.name).then(function(response) {
+            debugger;
+            console.log(response);
+            }, function(err) {
+                $scope.invalidMessage= err;
+            });
+
+
         switch (selected.type){
             case 'varietal':
                 wineData = [
-                    { year: "2016", producer: "Abacella", vineyard: "Estate", 
+                    { vintage: "2016", producer: "Abacella", vineyard: "Estate", 
                         bottles:[
                             {id: 1, location: 'A'},
                             {id: 2, location: 'A'},
@@ -23,16 +31,16 @@ wineDetective.controller('wineGridController',
                             {id: 4, location: 'C'}
                         ]
                     },
-                    { year: "2016", producer: "Zerba", vineyard: "Rocks"},
-                    { year: "2015", producer: "Delfino", vineyard: "Estate"},
-                    { year: "2014", producer: "RoxyAnne", vineyard: "Estate"},
-                    { year: "2013", producer: "Helix", vineyard: "Phinny Hill"}
+                    { vintage: "2016", producer: "Zerba", vineyard: "Rocks"},
+                    { vintage: "2015", producer: "Delfino", vineyard: "Estate"},
+                    { vintage: "2014", producer: "RoxyAnne", vineyard: "Estate"},
+                    { vintage: "2013", producer: "Helix", vineyard: "Phinny Hill"}
                 ];
                 break;
 
             case 'ava':
                 wineData = [
-                    { year: "2016", producer: "Abacella", vineyard: "Estate",
+                    { vintage: "2016", producer: "Abacella", vineyard: "Estate",
                         bottles:[
                             {id: 1, location: 'A'},
                             {id: 2, location: 'A'},
@@ -40,14 +48,14 @@ wineDetective.controller('wineGridController',
                             {id: 4, location: 'C'}
                         ]
                     },
-                    { year: "2013", producer: "Helix", vineyard: "Phinny Hill"}
+                    { vintage: "2013", producer: "Helix", vineyard: "Phinny Hill"}
                 ];
                 break;
 
 
             case 'vintage':
                 wineData = [
-                    { year: "2016", producer: "Abacella", vineyard: "Estate",
+                    { vintage: "2016", producer: "Abacella", vineyard: "Estate",
                         bottles:[
                             {id: 1, location: 'A'},
                             {id: 2, location: 'A'},
@@ -55,23 +63,24 @@ wineDetective.controller('wineGridController',
                             {id: 4, location: 'C'}
                         ]
                     },
-                    { year: "2016", producer: "Helix", vineyard: "Phinny Hill"}
+                    { vintage: "2016", producer: "Helix", vineyard: "Phinny Hill"}
                 ];
                 break;                
         }
 
         $scope.pageTitle = selected.name;
+        console.log(wineData);
 
         $scope.gridOptions = {
             columnDefs: [
                 {
-                    field: 'year', 
-                    displayName: 'Year', 
+                    field: 'vintage', 
+                    displayName: 'vintage', 
                     width: 100,
                     grouping: { groupPriority: 0 }, 
                     sort: { priority: 0, direction: 'desc' },
                     cellTemplate: '<div><div ng-if="!col.grouping || col.grouping.groupPriority === undefined || col.grouping.groupPriority === null || ( row.groupHeader && col.grouping.groupPriority === row.treeLevel )" class="ui-grid-cell-contents">{{COL_FIELD CUSTOM_FILTERS}}</div></div>',                    
-                    headerCellTemplate: '<div class="ui-grid-cell-contents">' + 'Year' + '</div>'                    
+                    headerCellTemplate: '<div class="ui-grid-cell-contents">' + 'vintage' + '</div>'                    
                 },
                 {
                     field: 'producer', 
@@ -107,7 +116,7 @@ wineDetective.controller('wineGridController',
                 $scope.inventory = {
                     producer : row.entity.producer,
                     varietal : selected.name,
-                    year     : row.entity.year,
+                    vintage     : row.entity.vintage,
                     bottles  : row.entity.bottles
                 }
                 $scope.modalShown = true;

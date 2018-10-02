@@ -6,10 +6,10 @@ wineDetective.controller('varietalController', ['$scope', 'Data', '$location',
       var tabLink = Data.getTab().link;
 
       Data.getAllVarietals().then(function(results) {
-        console.log(results);
+
             allVarietals = results;
 
-            $scope.redWines = results.red;
+            $scope.redWines   = results.red;
             $scope.whiteWines = results.white;
             $scope.otherWines = results.other;
       });
