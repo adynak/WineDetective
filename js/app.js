@@ -54,6 +54,16 @@ wineDetective.config(['$routeProvider', '$locationProvider',
             templateUrl: 'wineDetective/view/wineGrid.html',
             controller: 'wineGridController'
           }).
+          when('/addBottle',
+          {
+            templateUrl: 'wineDetective/view/addBottle.html',
+            controller: 'addBottleController'
+          }).
+          when('/inventory',
+          {
+            templateUrl: 'wineDetective/view/inventory.html',
+            controller: 'inventoryController'
+          }).
         otherwise({redirectTo: '/login'});
         
         $locationProvider.html5Mode(true);

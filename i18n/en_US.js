@@ -26,14 +26,27 @@ var txtLogin = {
 var txtTabNames = [
     { 
       link : 'varietal', 
-      label : 'Varietal'
+      label : 'Varietal',
+      type : 'all'
     },
     { 
       link : 'ava', 
-      label : 'AVA'
+      label : 'AVA',
+      type : 'all'
     },
     { 
       link : 'vintage',
-      label : 'Vintage'
+      label : 'Vintage',
+      type : 'all'
+    },
+    { 
+      link : 'addBottle',
+      label : 'Add Wine',
+      type : 'admin'
+    },
+    { 
+      link : 'inventory',
+      label : 'Inventory',
+      type : 'admin'
     }
 ]; 

@@ -1,0 +1,145 @@
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+
+    <br>
+
+    <div class="alert-tabHeading">{{ pageTitle }}</div>
+    <br>
+
+    <div class="form-center">
+      <form name="wineLabel" ng-submit="processForm()" class="form-horizontal">
+             <div class="form-group w3-padding-20">
+                 <label for="inputVintage" class="col-sm-2 control-label">&nbsp;Vintage</label>
+                     <div class="col-sm-10">
+                         <select class="form-control" 
+                             ng-model="bottle.vintage" 
+                             ng-options="x.description for x in vintage" required>
+                             <option value="">-- choose Vintage --</option>
+                         </select>
+                     </div>
+             </div>
+
+             <div class="form-group">
+                 <label for="inputChateau" class="col-sm-2 control-label">&nbsp;Producer</label>
+                 <div class="col-sm-10">
+                     <input  class="form-control"
+                             placeholder="Who bottled this wine?"
+                             type="text" 
+                             name="input" 
+                             ng-model="bottle.chateau"
+                             min="1" 
+                             max="99" 
+                             required>
+                 </div>
+             </div>             
+
+             <div class="form-group">
+                 <label for="inputName" class="col-sm-2 control-label">&nbsp;Name</label>
+                 <div class="col-sm-10">
+                     <input  class="form-control" 
+                             placeholder="Is there an AKA for this bottle?"
+                             type="text" 
+                             name="input" 
+                             ng-model="bottle.name"
+                             min="1" 
+                             max="99" 
+                             required>
+                 </div>
+             </div>
+
+             <div class="form-group">
+                 <label for="inputVineyard" class="col-sm-2 control-label">&nbsp;Vineyard</label>
+                 <div class="col-sm-10">
+                     <input  class="form-control"
+                             placeholder="Estate, blend, block or ...?" 
+                             type="text" 
+                             name="input" 
+                             ng-model="bottle.vineyard"
+                             min="1" 
+                             max="99" 
+                             required>
+                 </div>
+             </div>  
+
+             <div class="form-group">
+                 <label for="inputAva" class="col-sm-2 control-label">&nbsp;AVA</label>
+                 <div class="col-sm-10">
+                     <select class="form-control" 
+                             ng-model="bottle.ava" 
+                             ng-options="x.description for x in ava"
+                             required>
+                         <option value="">-- choose AVA --</option>
+                     </select>
+                 </div>
+             </div>
+
+             <div class="form-group">
+                 <label for="inputVarietal" class="col-sm-2 control-label">&nbsp;Varietal</label>
+                 <div class="col-sm-10">
+                     <select class="form-control" 
+                             ng-model="bottle.varietal" 
+                             ng-options="x.description for x in varietal"
+                             required>
+                         <option value="">-- choose Varietal --</option>
+                     </select>
+                 </div>
+             </div>
+
+             <div class="form-group">
+                 <label for="inputNumberOfBottles" class="col-sm-2 control-label">&nbsp;Quantity</label>
+                 <div class="col-sm-10">
+                     <input  class="form-control"
+                             placeholder="How many bottles are you adding?"
+                             type="number" 
+                             name="input" 
+                             ng-model="bottle.numberOfBottles" 
+                             min="1" 
+                             max="99" 
+                             required>
+                     </div>
+             </div>
+
+             <div class="form-group">
+                 <label for="inputBin" class="col-sm-2 control-label">&nbsp;Bin</label>
+                 <div class="col-sm-10">
+                     <select class="form-control" 
+                             ng-model="bottle.bin" 
+                             ng-options="x.description for x in bin"
+                             required>
+                         <option value="">-- choose Bin --</option>
+                     </select>
+                 </div>
+             </div>  
+
+             <div class="form-group">
+                 <label for="inputNumberOfBottles" class="col-sm-2 control-label">&nbsp;Price</label>
+                 <div class="col-sm-10">
+
+                     <input  class="form-control" 
+                             name="input" 
+                             ng-model="bottle.price" 
+                             format="currency">
+                     </div>
+             </div>
+
+             <div class="col-xs-6 w3-white">
+                 <button type="button" ng-click="resetForm(showMessages)"class="btn btn-danger btn-block">
+                     <span class="glyphicon glyphicon-remove"></span> Reset Form
+                 </button>
+             </div>
+
+             <div class="col-xs-6 w3-white">
+                 <button type="submit" class="btn btn-success btn-block">
+                     <span class="glyphicon glyphicon-ok"></span> Submit
+                 </button>
+             </div>
+
+      </form>
+      <br><br>
+      <div id="messages" class="w3-container w3-light-green w3-padding-16 w3-center" ng-show="showMessages">
+             {{message}} <br>
+      </div>
+
+    </div>
+  </div>
+</div>

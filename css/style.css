@@ -101,3 +101,11 @@ body {
   font-family: 'arial', 'sans-serif';
 }
 
+.showTab {
+  display: inline;
+}
+
+.hideTab {
+  display: none;
+}
+

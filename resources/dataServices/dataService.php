@@ -19,7 +19,7 @@ if ($data->task == 'getAllVarietals') {
   $json = '{ "red": [{"name": "Cabernet Franc"},{"name": "Cabernet Sauvignon"}],"white": [{"name": "Chardonnay"},{"name": "Sauvignon Blanc"}],"other": [{"name": "Champagne"},{"name": "Port"},{"name": "Rose"}]}';
 
 	$sql  = '';
-	$sql .= 'SELECT varietals FROM winedetective.varietal;';
+	$sql .= 'SELECT varietals FROM winedetective.varietal_by_winecategory;';
 	$result = pg_query($conn, $sql);
 	$rows = pg_num_rows($result);
 	$json = '';
@@ -37,6 +37,7 @@ if ($data->task == 'getAllVarietals') {
 }
 
 else if ($data->task == 'init') {
+	// rebuild tables and views based on the bottle table
 	$debug = false;
 	$sql  = '';
 	$sql .= 'SELECT  winedetective.build_varietal();';

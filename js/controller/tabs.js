@@ -19,12 +19,23 @@ wineDetective.controller('tabsController', ['$scope', 'Data', '$location',
       });
 
       $scope.tabClass = function(tab) {
+
+        var tabControl;
+
+        var allowAccess = Data.getCurrentMember().member.member_type;
+        if (tab.type == 'admin' && allowAccess == 0){
+          $scope.accessType = 'none';
+        } else {
+          $scope.accessType = 'inline';
+        }
+
         if ($scope.selectedTab == tab) {
           Data.setTab(tab);
-          return "active";
+          tabControl = 'active';
         } else {
-          return "";
+          tabControl = '';
         }
+        return tabControl
       }
 
     }

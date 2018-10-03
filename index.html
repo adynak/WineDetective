@@ -25,6 +25,7 @@
     <script src="node_modules/angular-messages/angular-messages.js"></script>
     <script src="node_modules/angular-material/angular-material.js"></script>
     <script src="node_modules/checklist-model/checklist-model.js"></script>
+    <script src="node_modules/lodash/lodash.min.js"></script>    
 
     <!-- application modules -->
     <script src="i18n/en_US.js"></script>
@@ -36,6 +37,7 @@
     <script src="js/controller/ava.js"></script>
     <script src="js/controller/vintage.js"></script>
     <script src="js/controller/wineGrid.js"></script>
+    <script src="js/controller/addBottle.js"></script>
 
     <script src="js/factory/dataService.js"></script>
 
@@ -53,9 +55,12 @@
     <div class="alert-heading">
     </div>
 
+
+
     <div ng-show=showTabs ng-controller="tabsController">
         <ul class="nav nav-tabs">
             <li ng-class="tabClass(tab)" 
+                ng-style={'display':accessType}
                 ng-repeat="tab in tabs" 
                 tab="tab">
                 <a href="{{tab.link}}" ng-click="setSelectedTab(tab)">{{tab.label}}</a>

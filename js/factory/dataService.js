@@ -4,18 +4,21 @@ wineDetective.factory("Data", ['$http', '$q', '$rootScope',
         var factoryVariables = {
             varietal: null,
             loginCredentials:{
-                validated: false
+                validated: false,
+                member: {
+                    member_type: 0
+                }
             },
             showTabs: ''
         };
 
 
         var getShowTabs = function () {
-               return factoryVariables.showTabs;
+            return factoryVariables.showTabs;
         }
 
         var setShowTabs = function (showTabs) {
-                factoryVariables.showTabs = showTabs;
+            factoryVariables.showTabs = showTabs;
         }
 
         var setVarietal = function(varietal){
