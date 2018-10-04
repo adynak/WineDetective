@@ -68,5 +68,8 @@ var txtAddBottle = {
     quantity: "Quantity",
     placeholderQuantity: "How many bottles are you adding?",
     price: "Price",
-    placeholderPrice: "What did you pay for this juice?"
+    placeholderPrice: "What did you pay for this juice?",
+    reset: "Start Over",
+    bins: "Continue",
+    whereDoesItGo: "Where are you storing this wine?"
 };

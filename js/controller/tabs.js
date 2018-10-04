@@ -24,7 +24,8 @@ wineDetective.controller('tabsController', ['$scope', 'Data', '$location',
 
         var allowAccess = Data.getCurrentMember().member.member_type;
         if (tab.type == 'admin' && allowAccess == 0){
-          $scope.accessType = 'none';
+          // $scope.accessType = 'none';
+          $scope.accessType = 'inline';          
         } else {
           $scope.accessType = 'inline';
         }

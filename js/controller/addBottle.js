@@ -3,6 +3,8 @@ wineDetective.controller('addBottleController', ['$scope', 'Data', '$location', 
 
 		$scope.prompts = txtAddBottle;
 
+		$scope.modalShown = false;
+
 		var d = new Date();
 		var YYYY = d.getFullYear();
 		$scope.vintage = [
@@ -33,5 +35,26 @@ wineDetective.controller('addBottleController', ['$scope', 'Data', '$location', 
 	        $scope.bin = response.data.records;
 	    });
 
+	    $scope.resetForm = function(bottle){
+			Object.keys(bottle).forEach(function(key) {
+				bottle[key] = null;
+			});
+	    }
+
+	    $scope.processForm = function(bottle){
+			var storageBins = [];
+			var binPrompt = {};
+
+	    	$scope.bottleDescription = bottle.vintage.description + ' ' + bottle.producer + ' ' + bottle.varietal.description;
+	    	for (var b = 1 ; b < bottle.numberOfBottles+1 ; b++){
+	    		binPrompt.id = b;
+	    		binPrompt.label = 'Bottle #' + b
+	    		storageBins.push(binPrompt);
+	    		binPrompt = {};
+	    	}
+	    	console.log(storageBins);
+	    	$scope.addToInventory = storageBins;
+	    	$scope.modalShown = true;
+	    }
     }
 ]);
