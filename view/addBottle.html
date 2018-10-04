@@ -3,30 +3,30 @@
 
     <br>
 
-    <div class="alert-tabHeading">{{ pageTitle }}</div>
+    <div class="alert-tabHeading">{{ prompts.pageTitle }}</div>
     <br>
 
     <div class="form-center">
       <form name="wineLabel" ng-submit="processForm()" class="form-horizontal">
              <div class="form-group w3-padding-20">
-                 <label for="inputVintage" class="col-sm-2 control-label">&nbsp;Vintage</label>
+                 <label for="inputVintage" class="col-sm-2 control-label">{{prompts.vintage}}</label>
                      <div class="col-sm-10">
                          <select class="form-control" 
                              ng-model="bottle.vintage" 
                              ng-options="x.description for x in vintage" required>
-                             <option value="">-- choose Vintage --</option>
+                             <option value="">{{prompts.placeholderVintage}}</option>
                          </select>
                      </div>
              </div>
 
              <div class="form-group">
-                 <label for="inputChateau" class="col-sm-2 control-label">&nbsp;Producer</label>
+                 <label for="inputChateau" class="col-sm-2 control-label">{{prompts.producer}}</label>
                  <div class="col-sm-10">
                      <input  class="form-control"
-                             placeholder="Who bottled this wine?"
+                             placeholder={{prompts.placeholderProducer}}
                              type="text" 
                              name="input" 
-                             ng-model="bottle.chateau"
+                             ng-model="bottle.producer"
                              min="1" 
                              max="99" 
                              required>
@@ -34,10 +34,10 @@
              </div>             
 
              <div class="form-group">
-                 <label for="inputName" class="col-sm-2 control-label">&nbsp;Name</label>
+                 <label for="inputName" class="col-sm-2 control-label">{{prompts.AKA}}</label>
                  <div class="col-sm-10">
                      <input  class="form-control" 
-                             placeholder="Is there an AKA for this bottle?"
+                             placeholder={{prompts.placeholderAKA}}
                              type="text" 
                              name="input" 
                              ng-model="bottle.name"
@@ -48,10 +48,10 @@
              </div>
 
              <div class="form-group">
-                 <label for="inputVineyard" class="col-sm-2 control-label">&nbsp;Vineyard</label>
+                 <label for="inputVineyard" class="col-sm-2 control-label">{{prompts.vineyard}}</label>
                  <div class="col-sm-10">
                      <input  class="form-control"
-                             placeholder="Estate, blend, block or ...?" 
+                             placeholder={{prompts.placeholderVineyard}}
                              type="text" 
                              name="input" 
                              ng-model="bottle.vineyard"
@@ -62,34 +62,34 @@
              </div>  
 
              <div class="form-group">
-                 <label for="inputAva" class="col-sm-2 control-label">&nbsp;AVA</label>
+                 <label for="inputAva" class="col-sm-2 control-label">{{prompts.AVA}}</label>
                  <div class="col-sm-10">
                      <select class="form-control" 
                              ng-model="bottle.ava" 
                              ng-options="x.description for x in ava"
                              required>
-                         <option value="">-- choose AVA --</option>
+                         <option value="">{{prompts.placeholderAVA}}</option>
                      </select>
                  </div>
              </div>
 
              <div class="form-group">
-                 <label for="inputVarietal" class="col-sm-2 control-label">&nbsp;Varietal</label>
+                 <label for="inputVarietal" class="col-sm-2 control-label">{{prompts.varietal}}</label>
                  <div class="col-sm-10">
                      <select class="form-control" 
                              ng-model="bottle.varietal" 
                              ng-options="x.description for x in varietal"
                              required>
-                         <option value="">-- choose Varietal --</option>
+                         <option value="">{{prompts.placeholderVarietal}}</option>
                      </select>
                  </div>
              </div>
 
              <div class="form-group">
-                 <label for="inputNumberOfBottles" class="col-sm-2 control-label">&nbsp;Quantity</label>
+                 <label for="inputNumberOfBottles" class="col-sm-2 control-label">{{prompts.quantity}}</label>
                  <div class="col-sm-10">
                      <input  class="form-control"
-                             placeholder="How many bottles are you adding?"
+                             placeholder={{prompts.placeholderQuantity}}
                              type="number" 
                              name="input" 
                              ng-model="bottle.numberOfBottles" 
@@ -112,10 +112,10 @@
              </div>  
 
              <div class="form-group">
-                 <label for="inputNumberOfBottles" class="col-sm-2 control-label">&nbsp;Price</label>
+                 <label for="inputNumberOfBottles" class="col-sm-2 control-label">{{prompts.price}}</label>
                  <div class="col-sm-10">
-
                      <input  class="form-control" 
+                             placeholder={{prompts.placeholderPrice}}
                              name="input" 
                              ng-model="bottle.price" 
                              format="currency">

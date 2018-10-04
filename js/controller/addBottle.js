@@ -1,7 +1,7 @@
 wineDetective.controller('addBottleController', ['$scope', 'Data', '$location', '$http',
     function($scope, Data, $location, $http) {
 
-      $scope.pageTitle = 'Add Wine Purchase';
+		$scope.prompts = txtAddBottle;
 
 		var d = new Date();
 		var YYYY = d.getFullYear();

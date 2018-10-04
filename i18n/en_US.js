@@ -50,3 +50,23 @@ var txtTabNames = [
       type : 'admin'
     }
 ]; 
+
+var txtAddBottle = {
+    pageTitle: 'Add Wine Purchase',
+    vintage: 'Vintage',
+    placeholderVintage : '-- choose Vintage --',
+    producer: 'Producer',
+    placeholderProducer: 'Who bottled this wine?',
+    AKA: 'Name',
+    placeholderAKA: "Is there another name for this wine?",
+    vineyard: "Vineyard",
+    placeholderVineyard: "Is this wine Estate, blend, vineyard block or ...?" ,
+    AVA: "AVA",
+    placeholderAVA: "-- choose AVA --",
+    varietal: "Varietal",
+    placeholderVarietal: "-- choose Varietal --",
+    quantity: "Quantity",
+    placeholderQuantity: "How many bottles are you adding?",
+    price: "Price",
+    placeholderPrice: "What did you pay for this juice?"
+};
