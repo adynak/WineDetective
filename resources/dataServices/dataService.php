@@ -1,6 +1,5 @@
 <?php
 $fp = fopen('/Library/WebServer/Documents/wineDetective/debug/test.txt','a+');
-fwrite($fp , 'hello world' . "\r\n");
 
 $debug = true ;
 

@@ -71,5 +71,8 @@ var txtAddBottle = {
     placeholderPrice: "What did you pay for this juice?",
     reset: "Start Over",
     bins: "Continue",
-    whereDoesItGo: "Where are you storing this wine?"
+    whereDoesItGo: "Where are you storing this wine?",
+    addNewInstructions: "Use this page to add or remove ",
+    addThing : 'Done'
 };
+

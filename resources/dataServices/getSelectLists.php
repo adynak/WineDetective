@@ -25,7 +25,7 @@
 	$addNewDescription = ucwords("add new " . $tableName);
 
 	$myArray = array();
-	$row = array("id" => "0", "description" => $addNewDescription);
+	$row = array("id" => 0, "description" => $addNewDescription, "tableName" => $tableName, "label" => ucwords($tableName) );
 	$myArray[] = $row;
 
 	$sql  = '' ;

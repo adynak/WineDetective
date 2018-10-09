@@ -65,9 +65,10 @@
         <div class="form-group col-xs-10 col-sm-6 col-md-6 col-lg-6">
           <label for="inputVarietal" class="col-sm-2 control-label">{{prompts.varietal}}</label>
           <div class="col-sm-10">
-             <select class="form-control" 
-                     ng-model="bottle.varietal" 
-                     ng-options="x.description for x in varietal"
+             <select class      = "form-control" 
+                     ng-model   = "bottle.varietal" 
+                     ng-options = "x.description for x in varietal"
+                     ng-change  = "getNewSomething(bottle.varietal)"
                      required>
                  <option value="">{{prompts.placeholderVarietal}}</option>
              </select>
@@ -133,7 +134,7 @@
         </div>
 
         <div class="col-xs-6">
-           <button type="submit" class="btn btn-success btn-block">
+           <button type="button" ng-click="getStorageBin(bottle)" class="btn btn-success btn-block">
                <span class="glyphicon glyphicon-ok"></span> {{prompts.bins}}
            </button>
         </div>
@@ -149,6 +150,7 @@
   </div>
 </div>
 
+<!-- ********************************* -->
 <div>
   <modal-dialog show='modalShown' width='400px' txtButtonDone='{{prompts.btnCancel}}'>
     <h4 class="alert alert-info">{{bottleDescription}}</h4>
@@ -167,8 +169,69 @@
         </div>
 
     </div>
+
+            <div class="col-xs-6">
+           <button type="button" ng-click="toggleModal(bottle)" class="btn btn-danger btn-block">
+               <span class="glyphicon glyphicon-remove"></span> {{prompts.reset}}
+           </button>
+        </div>
+
+        <div class="col-xs-6">
+           <button type="button" ng-click="processForm(bottle)" class="btn btn-success btn-block">
+               <span class="glyphicon glyphicon-ok"></span> {{prompts.bins}}
+           </button>
+        </div>
+<br><br>
   </modal-dialog>
 </div>
+<!-- ********************************* -->
+
+
+<!-- ********************************* -->
+<div>
+  <modal-dialog show='modalAddNewTableItem' width='800px' txtButtonDone='{{prompts.btnCancel}}'>
+    <h4 class="alert alert-info">{{addNewHeading}}</h4>
+      {{prompts.addNewInstructions}}
+    <br><br>
+    <div>
+      <ul class="maintenanceListUnorderedList">
+        <li ng-repeat="x in infoList">
+          <span ng-click="removeItem($index)" style="cursor:pointer;" class="glyphicon glyphicon-remove"></span>
+            {{x.description}}
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="form-group">
+          <label for="inputName" class="col-sm-3 control-label">&nbsp;New {{newLabel}}&nbsp;:</label>
+            <div class="col-sm-9">
+              <input type="text" 
+                     name="input" 
+                     ng-model="bottle.addMe"
+                     ng-click="clearStatus(showMessages)">
+              <button ng-click="addItem(bottle)">Add</button>
+              &nbsp;&nbsp;&nbsp;Category:
+              <label data-ng-repeat="option in wineCategoryList">
+                <input style="margin-left:10px;" type="radio" name="winecolor" ng-model="bottle.winecategory" ng-value="option.description" />
+                  {{option.description}}
+              </label>
+            </div>
+      </div>
+
+      <br><br>
+
+    </div>
+
+    <div class="centerDoneButton">
+      <button type="button" ng-click="processNewThing(bottle)" class="btn btn-success btn-block col-xs-6">
+        <span class="glyphicon glyphicon-ok"></span> {{prompts.addThing}}
+      </button>
+    </div>
+  
+  </modal-dialog>
+</div>
+<!-- ********************************* -->
 
 <div class="row">
   <div class="col-md-4 col-md-offset-4">
