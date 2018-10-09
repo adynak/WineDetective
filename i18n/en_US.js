@@ -72,7 +72,10 @@ var txtAddBottle = {
     reset: "Start Over",
     bins: "Continue",
     whereDoesItGo: "Where are you storing this wine?",
-    addNewInstructions: "Use this page to add or remove ",
-    addThing : 'Done'
+    modalAddNewInstructions: "Use this page to add or remove ",
+    modalAddThing : 'Add',
+    modalDone : 'Done',
+    new: 'New',
+    modalAddNewCategory: 'Category'
 };
 

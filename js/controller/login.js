@@ -15,6 +15,10 @@ wineDetective.controller('LoginController', ['$scope', '$http', '$location', 'Da
 
             Data.validateCredentials(member).then(function(response) {
                 if (response.validated == true) {
+
+                    Data.setAvaCategoryList();
+                    Data.setVarietalCategoryList();
+                    
                     // use the factory to send the value to the tabs controller
                     Data.setShowTabs(response.validated);
                     Data.setCurrentMember(response);

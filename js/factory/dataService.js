@@ -13,6 +13,52 @@ wineDetective.factory("Data", ['$http', '$q', '$rootScope',
         };
 
 
+        var setVarietalCategoryList = function(){
+            factoryVariables.varietalCategoryList = [
+                {
+                    "description": "Red",
+                    "isSelected": false
+                }, 
+                {
+                    "description": "White",
+                    "isSelected": false
+                },
+                {
+                    "description": "Other",
+                    "isSelected": false
+                }
+            ];
+        }
+
+        var getVarietalCategoryList = function(){
+            return factoryVariables.varietalCategoryList;
+        }
+
+        var setAvaCategoryList = function(){
+            factoryVariables.avaCategoryList = [
+                {
+                    "description": "Oregon",
+                    "isSelected": false
+                }, 
+                {
+                    "description": "Washington",
+                    "isSelected": false
+                },
+                {
+                    "description": "California",
+                    "isSelected": false
+                },
+                {
+                    "description": "OtherAVA",
+                    "isSelected": false
+                }
+            ];
+        }
+
+        var getAvaCategoryList = function(){
+            return factoryVariables.avaCategoryList;
+        }
+
         var getShowTabs = function () {
             return factoryVariables.showTabs;
         }
@@ -141,7 +187,11 @@ wineDetective.factory("Data", ['$http', '$q', '$rootScope',
             getAllVarietals:getAllVarietals,
             getShowTabs: getShowTabs,
             setShowTabs: setShowTabs,
-            getSelectedVarietal: getSelectedVarietal
+            getSelectedVarietal: getSelectedVarietal,
+            setVarietalCategoryList: setVarietalCategoryList,
+            getVarietalCategoryList: getVarietalCategoryList,
+            setAvaCategoryList: setAvaCategoryList,
+            getAvaCategoryList: getAvaCategoryList
         };
     }
 ]);

@@ -140,3 +140,11 @@ body {
 .winecategory {
     margin-left:10px;
 }
+
+.fatLine {
+    border: none;
+    height: 5px;
+    /* Set the hr color */
+    color: #333; /* old IE */
+    background-color: #333; /* Modern Browsers */
+}
