@@ -105,28 +105,13 @@
         <div class="form-group col-xs-10 col-sm-6 col-md-6 col-lg-6">
           <label for="inputNumberOfBottles" class="col-sm-2 control-label">{{prompts.price}}</label>
           <div class="col-sm-10">
-          <input  class="form-control" 
+          <input class="form-control" 
                  placeholder={{prompts.placeholderPrice}}
                  name="input" 
                  ng-model="bottle.price" 
                  format="currency">
           </div>
         </div>
-
-<!-- 
-             <div class="form-group">
-                 <label for="inputBin" class="col-sm-2 control-label">&nbsp;Bin</label>
-                 <div class="col-sm-10">
-                     <select class="form-control" 
-                             ng-model="bottle.bin" 
-                             ng-options="x.description for x in bin"
-                             required>
-                         <option value="">-- choose Bin --</option>
-                     </select>
-                 </div>
-             </div>  
-
- -->
 
         <div class="col-xs-6">
            <button type="button" ng-click="resetForm(bottle)"class="btn btn-danger btn-block">
@@ -153,7 +138,7 @@
 
 <!-- ********************************* -->
 <div>
-  <modal-dialog show='modalShown' width='400px' txtButtonDone='{{prompts.btnCancel}}'>
+  <modal-dialog show='modalShowAddBin' width='400px' txtButtonDone='{{prompts.btnCancel}}'>
     <h4 class="alert alert-info">{{bottleDescription}}</h4>
     {{prompts.whereDoesItGo}}
     <br><br>
@@ -164,6 +149,7 @@
             <select class="form-control" 
                     ng-model="bottle.bin[$index]" 
                     ng-options="x.description for x in bin"
+                    ng-change  = "getNewSomething(bottle.bin[$index])"
                     required>
                 <option value="">-- choose Bin --</option>
             </select>
@@ -171,18 +157,18 @@
 
     </div>
 
-            <div class="col-xs-6">
-           <button type="button" ng-click="toggleModal(bottle)" class="btn btn-danger btn-block">
-               <span class="glyphicon glyphicon-remove"></span> {{prompts.reset}}
-           </button>
-        </div>
+    <div class="col-xs-6">
+      <button type="button" ng-click="toggleModal(bottle)" class="btn btn-danger btn-block">
+        <span class="glyphicon glyphicon-remove"></span> {{prompts.reset}}
+      </button>
+    </div>
 
-        <div class="col-xs-6">
-           <button type="button" ng-click="processForm(bottle)" class="btn btn-success btn-block">
-               <span class="glyphicon glyphicon-ok"></span> {{prompts.bins}}
-           </button>
-        </div>
-<br><br>
+    <div class="col-xs-6">
+      <button type="button" ng-click="processForm(bottle)" class="btn btn-success btn-block">
+        <span class="glyphicon glyphicon-ok"></span> {{prompts.bins}}
+      </button>
+    </div>
+    <br><br>
   </modal-dialog>
 </div>
 <!-- ********************************* -->
@@ -191,7 +177,7 @@
 <!-- ********************************* -->
 <div>
     <modal-dialog show='modalShowAddNew' width='800px' txtButtonDone='{{prompts.btnCancel}}'>
-        <h4 class="alert alert-info">{{modalAddNewHeading}}</h4>{{prompts.modalAddNewInstructions}}
+        <h4 class="alert alert-info">{{modalAddNewHeading}}</h4>{{modalAddNewInstructions}}
         <br>
         <br>
 
@@ -215,16 +201,18 @@
 
               <br><br>
 
-              <label for="inputName" class="col-sm-2">{{prompts.modalAddNewCategory }}</label>
-              <div>
-                  <label data-ng-repeat="option in wineCategoryList">
-                      <input style="margin-left:20px;" 
-                             type="radio" 
-                             name="winecolor" 
-                             ng-model="bottle.winecategory" 
-                             ng-value="option.description" /> {{option.description}}
-                  </label>
-              </div>
+              <duv ng-show="modalShowCategory">
+                <label for="inputName" class="col-sm-2">{{prompts.modalAddNewCategory }}</label>
+                <div>
+                    <label data-ng-repeat="option in wineCategoryList">
+                        <input style="margin-left:20px;" 
+                               type="radio" 
+                               name="winecolor" 
+                               ng-model="bottle.winecategory" 
+                               ng-value="option.description" /> {{option.description}}
+                    </label>
+                </div>
+              </duv>
 
             </div>
 

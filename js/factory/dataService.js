@@ -12,7 +12,6 @@ wineDetective.factory("Data", ['$http', '$q', '$rootScope',
             showTabs: ''
         };
 
-
         var setVarietalCategoryList = function(){
             factoryVariables.varietalCategoryList = [
                 {
@@ -154,7 +153,7 @@ wineDetective.factory("Data", ['$http', '$q', '$rootScope',
             return qObject.promise;            
         }
 
-        var getAllVarietals = function(){
+        var getAllVarietals = function(bottle){
             var qObject = $q.defer();
             var params = {
                 task: 'getAllVarietals'
@@ -175,6 +174,28 @@ wineDetective.factory("Data", ['$http', '$q', '$rootScope',
             return qObject.promise;            
         }
 
+        var addBottle = function(bottle){
+            var qObject = $q.defer();
+            var params = {
+                task: 'addBottle',
+                bottle: bottle
+            };
+
+            $http({
+                method: 'POST',
+                url: 'wineDetective/resources/dataServices/dataService.php',
+                data: params,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+            }).then(function(success) {
+                qObject.resolve(success.data);
+            }, function(err) {
+                console.log(err);
+            });
+            return qObject.promise;            
+        }        
+
         return {
             init: init,
             setVarietal: setVarietal,
@@ -191,7 +212,8 @@ wineDetective.factory("Data", ['$http', '$q', '$rootScope',
             setVarietalCategoryList: setVarietalCategoryList,
             getVarietalCategoryList: getVarietalCategoryList,
             setAvaCategoryList: setAvaCategoryList,
-            getAvaCategoryList: getAvaCategoryList
+            getAvaCategoryList: getAvaCategoryList,
+            addBottle: addBottle
         };
     }
 ]);

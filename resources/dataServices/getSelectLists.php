@@ -1,5 +1,6 @@
 <?php
-
+	$debug = false;
+	
 	$fp = fopen('/Library/WebServer/Documents/wineDetective/debug/test.txt','a+');
 
 	function exception_error_handler($errno, $errstr, $errfile, $errline ) {
@@ -53,7 +54,9 @@
 
 	echo '{"records": ' . $json . '}';
 
-	fwrite($fp , $json);
-	fwrite($fp , "\r\n");
+	if ($debug) {
+		fwrite($fp , $json);
+		fwrite($fp , "\r\n");
+	}
 
 ?>

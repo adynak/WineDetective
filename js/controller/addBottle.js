@@ -3,7 +3,7 @@ wineDetective.controller('addBottleController', ['$scope', 'Data', '$location', 
 
 		$scope.prompts = txtAddBottle;
 
-		$scope.modalShown = false;
+		$scope.modalShowAddBin      = false;
 		$scope.modalAddNewTableItem = false;
 
 		var d = new Date();
@@ -50,14 +50,12 @@ wineDetective.controller('addBottleController', ['$scope', 'Data', '$location', 
 	    }
 
 	    $scope.addNewThing = function(bottle){
-	    	console.log(bottle);
 
 	    	var newItem = {};
 	    	var data = '';
 	    	newItem.description  = bottle.addMe;
 	    	newItem.winecategory = bottle.winecategory;
-	    	debugger;
-	    	// newItem.type         = bottle.
+
 	    	switch (bottle.inputType){
 	    		case 'varietal':
 	    			data = $scope.varietal;
@@ -69,6 +67,7 @@ wineDetective.controller('addBottleController', ['$scope', 'Data', '$location', 
 	    			data = $scope.bin;
 	    			break;
 	    	}
+
 	    	found = $filter('filter')(data, {description: newItem.description}, false);
 			if (found.length) {
             	for (var cnt = 0 ; cnt < found.length ; cnt ++){
@@ -85,18 +84,25 @@ wineDetective.controller('addBottleController', ['$scope', 'Data', '$location', 
             	}
         	} else {
         		insertPosition = findIndexInData(data, 'description', newItem);
+				$scope.infoList.splice(insertPosition-1, 0, newItem);
+
+				// postgresql needs to return the id
         		newItem.id = 19;
-        		if (insertPosition < 0){
-             	   $scope.infoList.push(newItem);
-             	   $scope.varietal.push(newItem);
-            	} else {
-	                $scope.infoList.splice(insertPosition, 0, newItem);
-	                $scope.varietal.splice(insertPosition, 0, newItem);
-    	        }
+
+				switch (bottle.inputType){
+					case 'varietal':
+						$scope.varietal.splice(insertPosition, 0, newItem);
+						break;
+					case 'ava':
+						$scope.ava.splice(insertPosition, 0, newItem);
+						break;
+					case 'bin':
+						$scope.bin.splice(insertPosition, 0, newItem);
+						break;
+				}
 
 				$scope.bottle.addMe = null;
 				$scope.bottle.winecategory = null;
-
 
             	// results = ListServices.insertNewItem(newItem,$scope.infoList,$scope.infoListLabel);
         	}
@@ -109,20 +115,32 @@ wineDetective.controller('addBottleController', ['$scope', 'Data', '$location', 
 	    	if (theNewThing.id == 0){
 	    		var tableName = ' ' + theNewThing.tableName + 's:';
 
-	    		$scope.modalShowAddNew    = true;
-	    		$scope.modalAddNewHeading = theNewThing.description;
-	    		$scope.modalAddNewLabel   = txtAddBottle.new + ' ' + theNewThing.label + ":";
+	    		$scope.modalShowAddNew     = true;
+	    		$scope.modalAddNewHeading  = theNewThing.description;
+	    		$scope.modalAddNewLabel    = txtAddBottle.new + ' ' + theNewThing.label + ":";
+	    		$scope.modalShowCategory   = true;
 
-	    		$scope.prompts.modalAddNewInstructions = $scope.prompts.modalAddNewInstructions.concat(tableName);
-	    		if (theNewThing.tableName == 'varietal'){
-	    			$scope.wineCategoryList = Data.getVarietalCategoryList();
-	    			$scope.infoList         = $scope.varietal.slice(1, 999);
-	    			$scope.bottle.inputType = 'varietal';
-	    		} else {
-	    			$scope.wineCategoryList = Data.getAvaCategoryList();
-					$scope.infoList         = $scope.ava.slice(1,999);
-					$scope.bottle.inputType = 'ava';
+	    		$scope.modalAddNewInstructions = $scope.prompts.modalAddNewInstructions.concat(tableName);
+
+	    		switch(theNewThing.tableName){
+	    			case 'varietal':
+	    				$scope.wineCategoryList = Data.getVarietalCategoryList();
+	    				$scope.infoList         = $scope.varietal.slice(1, 999);
+	    				$scope.bottle.inputType = 'varietal';
+	    				break;
+					case 'AVA':
+						$scope.wineCategoryList = Data.getAvaCategoryList();
+						$scope.infoList         = $scope.ava.slice(1,999);
+						$scope.bottle.inputType = 'ava';
+	    				break;
+	     			case 'bin':
+	     				$scope.modalShowCategory = false;
+	    				$scope.wineCategoryList = Data.getAvaCategoryList();
+						$scope.infoList         = $scope.bin.slice(1,999);
+						$scope.bottle.inputType = 'bin';
+	    				break;	    				
 	    		}
+
 	    	}
 	    }
 
@@ -135,7 +153,7 @@ wineDetective.controller('addBottleController', ['$scope', 'Data', '$location', 
 	    $scope.toggleModal = function(bottle){
 	    	var key = 'bin';
 	    	bottle[key] = null;
-			$scope.modalShown = false;	    	
+			$scope.modalShowAddBin = false;	    	
 	    }
 
 	    $scope.getStorageBin = function(bottle){
@@ -150,15 +168,20 @@ wineDetective.controller('addBottleController', ['$scope', 'Data', '$location', 
 	    		binPrompt = {};
 	    	}
 	    	$scope.addToInventory = storageBins;
-	    	$scope.modalShown = true;
+	    	$scope.modalShowAddBin = true;
 	    }
 
 	    $scope.processForm = function(bottle){
-	    	alert('UPDATE POSTGRESQL');
-	    	$scope.modalShown = false;
-	    	Object.keys(bottle).forEach(function(key) {
-				bottle[key] = null;
-			});
+	    	$scope.modalShowAddBin = false;
+
+			Data.addBottle(bottle).then(function(results) {
+				alert('wine added');
+				Object.keys(bottle).forEach(function(key) {
+					bottle[key] = null;
+				});				
+			});	    	
+
+
 	    }
 
 	    $scope.checkInputs = function(inputs){
@@ -178,14 +201,16 @@ wineDetective.controller('addBottleController', ['$scope', 'Data', '$location', 
 	    }
 
 	    $scope.processNewThing = function(bottle,addMe){
+			$scope.bottle[bottle.inputType] = null;
 	    	if (typeof(addme) == "undefined"){
-	    		bottle['varietal'] = null;
+	    		bottle = null;
 	    	}
 			$scope.modalShowAddNew = false;
 	    }
 
 	    var findIndexInData = function(data, property, value){
-            var result = -1;
+	    	// we're going to use splice to insert, 999 will effectively be a push (append)
+            var result = 999;
             var desc = value.description;
             data.some(function (item, i) {
                 if (item[property] >= desc) {

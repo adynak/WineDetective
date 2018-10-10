@@ -13,11 +13,11 @@ wineDetective.controller('wineGridController',
         var wineData;
 
         Data.getSelectedVarietal(selected.name).then(function(response) {
-            debugger;
-            console.log(response);
+        
             }, function(err) {
                 $scope.invalidMessage= err;
-            });
+            }
+        );
 
 
         switch (selected.type){

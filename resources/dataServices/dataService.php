@@ -35,6 +35,35 @@ if ($data->task == 'getAllVarietals') {
 
 }
 
+else if ($data->task == 'addBottle') {
+	// rebuild tables and views based on the bottle table
+	$debug = true;
+
+	$sqlInsertValues = array();
+
+	foreach($data->bottle->bin as $bin){
+		$sql  = '';
+		$sql .= "INSERT INTO winedetective.bottle ('varietal','available','winecategory','vintage','producer','vineyard','bin','ava','price')";
+		$sql .= " values ";
+		$sql .= '($1, $2, $3, $4, $5, $6, $7, $8)';
+
+		array_push($sqlInsertValues,$data->bottle->varietal->description);
+		array_push($sqlInsertValues,true);
+		array_push($sqlInsertValues,$data->bottle->varietal->winecategory);
+		array_push($sqlInsertValues,$data->bottle->vintage->description);
+		array_push($sqlInsertValues,$data->bottle->producer);
+		array_push($sqlInsertValues,$data->bottle->vineyard);
+		array_push($sqlInsertValues,$bin->description);
+		array_push($sqlInsertValues,$data->bottle->ava->description);
+		array_push($sqlInsertValues,$data->bottle->price);
+
+		fwrite($fp , print_r($sqlInsertValues,1));
+		$sqlInsertValues = [];
+	}
+
+	echo 'got it';
+}
+
 else if ($data->task == 'init') {
 	// rebuild tables and views based on the bottle table
 	$debug = false;
@@ -47,7 +76,7 @@ else if ($data->task == 'getSelectedVarietal') {
 
 	$myArray = array();
 
-	$debug = true;
+	$debug = false;
 	$sql  = '';
 	$sql .= "SELECT  * from winedetective.get_smart('$data->varietalName');";
 	$result = pg_query($conn, $sql);
@@ -100,16 +129,16 @@ else if ($data->task == 'validate') {
 	// }
 
 if ($debug) {
-  fwrite($fp , 'task = ' . print_r($data->task,1));
-  fwrite($fp , "\n");
-  fwrite($fp , $sql);
-  fwrite($fp , "\n");
-fwrite($fp , $json);
-  fwrite($fp , "\n");
+	fwrite($fp , 'task = ' . print_r($data->task,1));
+	fwrite($fp , "\n");
+	fwrite($fp , $sql);
+	fwrite($fp , "\n");
+	fwrite($fp , $json);
+	fwrite($fp , "\n");
 
 
 
-  $debug = false ;
+	$debug = false ;
 }
 
 ?>
