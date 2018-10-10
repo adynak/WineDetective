@@ -1,18 +1,74 @@
-
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET idle_in_transaction_session_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SELECT pg_catalog.set_config('search_path', '', false);
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-SET row_security = off;
-
-
 CREATE SCHEMA winedetective;
 ALTER SCHEMA winedetective OWNER TO postgres;
 
+CREATE TABLE winedetective.ava (
+    id integer NOT NULL,
+    description character varying(100) NOT NULL,
+    winecategory text
+);
+ALTER TABLE winedetective.ava OWNER TO postgres;
+
+CREATE TABLE winedetective.bin (
+    id integer NOT NULL,
+    description character varying(100) NOT NULL
+);
+ALTER TABLE winedetective.bin OWNER TO postgres;
+
+CREATE TABLE winedetective.bottle (
+    id integer NOT NULL,
+    varietal text NOT NULL,
+    available boolean DEFAULT true,
+    winecategory text,
+    vintage integer,
+    producer text,
+    vineyard text,
+    bin text,
+    ava text
+);
+ALTER TABLE winedetective.bottle OWNER TO postgres;
+COMMENT ON COLUMN winedetective.bottle.winecategory IS 'for example, red, white, other';
+
+CREATE SEQUENCE winedetective.members_id_seq
+    START 1
+    INCREMENT 1
+    MINVALUE 0
+    CACHE 1;
+ALTER TABLE winedetective.members_id_seq OWNER TO postgres;
+
+CREATE TABLE winedetective.members (
+    id integer DEFAULT nextval('winedetective.members_id_seq'::regclass) NOT NULL,
+    name_first text,
+    name_last text,
+    name_business text,
+    occupation text,
+    email text,
+    phone_main text,
+    phone_secondary text,
+    member_since date DEFAULT now(),
+    active boolean DEFAULT true,
+    comments text,
+    onlineid text,
+    password text,
+    pword_type integer,
+    member_type integer
+);
+ALTER TABLE winedetective.members OWNER TO postgres;
+COMMENT ON COLUMN winedetective.members.occupation IS 'looking for president, CFO, CEO, lead dishwasher, head honcho';
+COMMENT ON COLUMN winedetective.members.pword_type IS 'is  the password is permanent (1)  or temporary (0)?';
+COMMENT ON COLUMN winedetective.members.member_type IS 'regularUser = 0; admin = 1';
+
+CREATE TABLE winedetective.varietal (
+    id integer NOT NULL,
+    description character varying(100) NOT NULL,
+    winecategory text NOT NULL
+);
+ALTER TABLE winedetective.varietal OWNER TO postgres;
+
+CREATE TABLE winedetective.varietal_by_winecategory (
+    winecategory text NOT NULL,
+    varietals text NOT NULL
+);
+ALTER TABLE winedetective.varietal_by_winecategory OWNER TO postgres;
 
 CREATE FUNCTION winedetective.build_varietal() RETURNS void
     LANGUAGE plpgsql
@@ -277,117 +333,41 @@ ALTER FUNCTION winedetective.upsert_varietal(key text, data text) OWNER TO postg
 SET default_tablespace = '';
 SET default_with_oids = false;
 
-CREATE TABLE winedetective.ava (
-    id integer NOT NULL,
-    description character varying(100) NOT NULL,
-    winecategory text
-);
-ALTER TABLE winedetective.ava OWNER TO postgres;
-
 CREATE SEQUENCE winedetective.ava_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
+    START 1
+    INCREMENT 1
+    MINVALUE 0
     CACHE 1;
 ALTER TABLE winedetective.ava_id_seq OWNER TO postgres;
 ALTER SEQUENCE winedetective.ava_id_seq OWNED BY winedetective.ava.id;
 
-CREATE TABLE winedetective.bin (
-    id integer NOT NULL,
-    description character varying(100) NOT NULL
-);
-ALTER TABLE winedetective.bin OWNER TO postgres;
 CREATE SEQUENCE winedetective.bin_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
+    START 1
+    INCREMENT 1
+    MINVALUE 0
     CACHE 1;
 ALTER TABLE winedetective.bin_id_seq OWNER TO postgres;
 ALTER SEQUENCE winedetective.bin_id_seq OWNED BY winedetective.bin.id;
 
-CREATE TABLE winedetective.bottle (
-    id integer NOT NULL,
-    varietal text NOT NULL,
-    available boolean DEFAULT true,
-    winecategory text,
-    vintage integer,
-    producer text,
-    vineyard text,
-    bin text,
-    ava text
-);
-ALTER TABLE winedetective.bottle OWNER TO postgres;
-COMMENT ON COLUMN winedetective.bottle.winecategory IS 'for example, red, white, other';
 CREATE SEQUENCE winedetective.bottle_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
+    START 1
+    INCREMENT 1
+    MINVALUE 0
     CACHE 1;
 ALTER TABLE winedetective.bottle_id_seq OWNER TO postgres;
 ALTER SEQUENCE winedetective.bottle_id_seq OWNED BY winedetective.bottle.id;
 
-CREATE SEQUENCE winedetective.members_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-ALTER TABLE winedetective.members_id_seq OWNER TO postgres;
-CREATE TABLE winedetective.members (
-    id integer DEFAULT nextval('winedetective.members_id_seq'::regclass) NOT NULL,
-    name_first text,
-    name_last text,
-    name_business text,
-    occupation text,
-    email text,
-    phone_main text,
-    phone_secondary text,
-    member_since date DEFAULT now(),
-    active boolean DEFAULT true,
-    comments text,
-    onlineid text,
-    password text,
-    pword_type integer,
-    member_type integer
-);
-ALTER TABLE winedetective.members OWNER TO postgres;
-COMMENT ON COLUMN winedetective.members.occupation IS 'looking for president, CFO, CEO, lead dishwasher, head honcho';
-COMMENT ON COLUMN winedetective.members.pword_type IS 'is  the password is permanent (1)  or temporary (0)?';
-COMMENT ON COLUMN winedetective.members.member_type IS 'regularUser = 0; admin = 1';
-
-CREATE TABLE winedetective.varietal (
-    id integer NOT NULL,
-    description character varying(100) NOT NULL,
-    winecategory text NOT NULL
-);
-ALTER TABLE winedetective.varietal OWNER TO postgres;
-
-CREATE TABLE winedetective.varietal_by_winecategory (
-    winecategory text NOT NULL,
-    varietals text NOT NULL
-);
-ALTER TABLE winedetective.varietal_by_winecategory OWNER TO postgres;
-
 CREATE SEQUENCE winedetective.varietal_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
+    START 1
+    INCREMENT 1
+    MINVALUE 0
     CACHE 1;
 ALTER TABLE winedetective.varietal_id_seq OWNER TO postgres;
 
 CREATE SEQUENCE winedetective.varietals_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
+    START 1
+    INCREMENT 1
+    MINVALUE 0
     CACHE 1;
 ALTER TABLE winedetective.varietals_id_seq OWNER TO postgres;
 ALTER SEQUENCE winedetective.varietals_id_seq OWNED BY winedetective.varietal.id;
@@ -469,5 +449,3 @@ INSERT INTO winedetective.varietal (id, description, winecategory) VALUES (7, 'C
 INSERT INTO winedetective.varietal_by_winecategory (winecategory, varietals) VALUES ('white', '{"white":[{"name":"Chardonnay"},{"name":"Pinot Grigio"}]}');
 INSERT INTO winedetective.varietal_by_winecategory (winecategory, varietals) VALUES ('red', '{"red":[{"name":"Cabernet Sauvignon"},{"name":"Pinot Noir"},{"name":"Tempernillo"}]}');
 INSERT INTO winedetective.varietal_by_winecategory (winecategory, varietals) VALUES ('other', '{"other":[{"name":"Champagne"},{"name":"Rose"}]}');
-
-
