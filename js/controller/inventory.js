@@ -40,7 +40,7 @@ wineDetective.controller('inventoryController', ['$scope', 'Data', '$location', 
 					enableSorting: false,
 					enableCellEdit: false,
                     visible: true,
-                    width: 250,
+                    width: 200,
 
                     cellTemplate: '<div ng-click="grid.appScope.showRecipe(row)" class="ui-grid-cell-contents">{{row.entity.producer}}</div>'
                 },
@@ -58,7 +58,7 @@ wineDetective.controller('inventoryController', ['$scope', 'Data', '$location', 
 					enableSorting: false,
 					enableCellEdit: true,
                     visible: true,
-                    width: 250,
+                    width: 200,
                     cellTemplate: '<div ng-click="grid.appScope.showRecipe(row)" class="ui-grid-cell-contents">{{row.entity.vineyard}}</div>'
                 },
                 {
