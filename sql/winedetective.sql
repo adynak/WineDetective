@@ -23,7 +23,8 @@ CREATE TABLE winedetective.bottle (
     producer text,
     vineyard text,
     bin text,
-    ava text
+    ava text,
+    price money
 );
 ALTER TABLE winedetective.bottle OWNER TO postgres;
 COMMENT ON COLUMN winedetective.bottle.winecategory IS 'for example, red, white, other';

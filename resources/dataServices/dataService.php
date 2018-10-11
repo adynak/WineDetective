@@ -41,11 +41,13 @@ else if ($data->task == 'addBottle') {
 
 	$sqlInsertValues = array();
 
+	$sql  = '';
+	$sql .= "INSERT INTO winedetective.bottle (varietal,available,winecategory,vintage,producer,vineyard,bin,ava,price)";
+	$sql .= " values ";
+	$sql .= '($1, $2, $3, $4, $5, $6, $7, $8, $9)';
+	pg_prepare($conn, "insertBottle", $sql);
+
 	foreach($data->bottle->bin as $bin){
-		$sql  = '';
-		$sql .= "INSERT INTO winedetective.bottle ('varietal','available','winecategory','vintage','producer','vineyard','bin','ava','price')";
-		$sql .= " values ";
-		$sql .= '($1, $2, $3, $4, $5, $6, $7, $8)';
 
 		array_push($sqlInsertValues,$data->bottle->varietal->description);
 		array_push($sqlInsertValues,true);
@@ -58,6 +60,17 @@ else if ($data->task == 'addBottle') {
 		array_push($sqlInsertValues,$data->bottle->price);
 
 		fwrite($fp , print_r($sqlInsertValues,1));
+	
+		$result = pg_execute($conn, "insertBottle", $sqlInsertValues);
+
+    	$status = "ok";
+        $errormessage = pg_result_error($result);
+        
+        $arr = array($status, $errormessage);
+        fwrite($fp , print_r($arr,1));
+        fwrite($fp , "\r\n");
+        // print json_encode($arr);
+
 		$sqlInsertValues = [];
 	}
 
