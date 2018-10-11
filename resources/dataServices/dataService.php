@@ -42,9 +42,9 @@ else if ($data->task == 'addBottle') {
 	$sqlInsertValues = array();
 
 	$sql  = '';
-	$sql .= "INSERT INTO winedetective.bottle (varietal,available,winecategory,vintage,producer,vineyard,bin,ava,price)";
+	$sql .= "INSERT INTO winedetective.bottle (varietal,available,winecategory,vintage,producer,vineyard,bin,ava,price,aka)";
 	$sql .= " values ";
-	$sql .= '($1, $2, $3, $4, $5, $6, $7, $8, $9)';
+	$sql .= '($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)';
 	pg_prepare($conn, "insertBottle", $sql);
 
 	foreach($data->bottle->bin as $bin){
@@ -58,6 +58,7 @@ else if ($data->task == 'addBottle') {
 		array_push($sqlInsertValues,$bin->description);
 		array_push($sqlInsertValues,$data->bottle->ava->description);
 		array_push($sqlInsertValues,$data->bottle->price);
+		array_push($sqlInsertValues,$data->bottle->aka);
 
 		fwrite($fp , print_r($sqlInsertValues,1));
 	
@@ -67,9 +68,6 @@ else if ($data->task == 'addBottle') {
         $errormessage = pg_result_error($result);
         
         $arr = array($status, $errormessage);
-        fwrite($fp , print_r($arr,1));
-        fwrite($fp , "\r\n");
-        // print json_encode($arr);
 
 		$sqlInsertValues = [];
 	}
@@ -83,6 +81,20 @@ else if ($data->task == 'init') {
 	$sql  = '';
 	$sql .= 'SELECT  winedetective.build_varietal();';
 	$result = pg_query($conn, $sql);
+}
+
+else if ($data->task == 'getInventory') {
+
+	$sql = "SELECT * FROM $dbSchema.bottle order by varietal";
+	$result = pg_query($conn, $sql);
+	if (!$result) {
+		echo "Error: " . $sql . '<br>' ;
+	} else {
+		while ($row = pg_fetch_assoc($result)) {
+			$myArray[] = $row;
+		}
+		echo json_encode($myArray);
+	}
 }
 
 else if ($data->task == 'getSelectedVarietal') {

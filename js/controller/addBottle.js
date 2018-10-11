@@ -172,6 +172,8 @@ wineDetective.controller('addBottleController', ['$scope', 'Data', '$location', 
 	    }
 
 	    $scope.processForm = function(bottle){
+	    	console.log(bottle);
+	    	debugger;
 	    	$scope.modalShowAddBin = false;
 
 			Data.addBottle(bottle).then(function(results) {

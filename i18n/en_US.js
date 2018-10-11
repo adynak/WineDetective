@@ -79,3 +79,13 @@ var txtAddBottle = {
     modalAddNewCategory: 'Category'
 };
 
+var txtInventory = {
+  pageTitle: 'Inventory',
+  searchEmptyText: 'Search',
+  columnVarietal: 'Varietal',
+  columnProducer: 'Producer',
+  columnVineyard: 'Vineyard',
+  columnBin: 'Bin',
+  columnVintage: 'Vintage',
+  columnAka: 'Brand Name'
+}

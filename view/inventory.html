@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+
+    <br>
+
+    <div class="alert-tabHeading">{{ prompts.pageTitle }}
+
+      <div class="col-sm-3 col-md-3 pull-right">
+        <div class="input-group-sm">
+          <input type="text" 
+                 class="form-control" 
+                 ng-change="searchBottles()" 
+                 placeholder="{{prompts.searchEmptyText}}"
+                 ng-model="searchText" />
+        </div>
+      </div>
+
+    </div>
+    <br>
+
+    <div id="inventory"
+         ui-grid="gridOptions" 
+         ui-grid-grouping
+         ui-grid-edit
+         ui-grid-cellNav
+         style="border:0px; height:400px !important">
+    </div>
+
+
+    
+  </div>
+</div>

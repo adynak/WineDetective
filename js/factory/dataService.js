@@ -194,7 +194,29 @@ wineDetective.factory("Data", ['$http', '$q', '$rootScope',
                 console.log(err);
             });
             return qObject.promise;            
-        }        
+        }
+
+        var getInventory = function(){
+            var qObject = $q.defer();
+            var params = {
+                task: 'getInventory'
+            };
+
+            $http({
+                method: 'POST',
+                url: 'wineDetective/resources/dataServices/dataService.php',
+                data: params,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+            }).then(function(success) {
+                qObject.resolve(success.data);
+            }, function(err) {
+                console.log(err);
+            });
+            return qObject.promise;            
+        }
+
 
         return {
             init: init,
@@ -213,7 +235,8 @@ wineDetective.factory("Data", ['$http', '$q', '$rootScope',
             getVarietalCategoryList: getVarietalCategoryList,
             setAvaCategoryList: setAvaCategoryList,
             getAvaCategoryList: getAvaCategoryList,
-            addBottle: addBottle
+            addBottle: addBottle,
+            getInventory: getInventory
         };
     }
 ]);
