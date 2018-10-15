@@ -1,5 +1,5 @@
-wineDetective.controller('LoginController', ['$scope', '$http', '$location', 'Data', '$rootScope', '$routeParams',
-    function($scope, $http, $location, Data, $rootScope, $routeParams) {
+wineDetective.controller('LoginController', ['$scope', '$http', '$location', 'Data', '$rootScope', '$routeParams', 'toaster',
+    function($scope, $http, $location, Data, $rootScope, $routeParams, toaster) {
 
 
         Data.init();
@@ -27,15 +27,17 @@ wineDetective.controller('LoginController', ['$scope', '$http', '$location', 'Da
                     } else {
                         $location.path('/varietal');
                     }
-                    // toaster.pop('success', "", txtLogin.credentialsValid, 3000, 'trustedHtml');
+
+                    toaster.pop('success', "", txtLogin.credentialsValid, 3000, 'trustedHtml');
                 } else {
                     Data.setCurrentMember('');
                     $scope.invalidMessage = txtLogin.credentialsInvalid;
-                    // toaster.pop('error', "", txtLogin.credentialsInvalid, 3000, 'trustedHtml');
+                    toaster.pop('error', "", txtLogin.credentialsInvalid, 3000, 'trustedHtml');
                 }
 
             }, function(err) {
                 $scope.invalidMessage= err;
+                toaster.pop('error', "", txtLogin.loginError, 3000, 'trustedHtml');                
             });
 
         };

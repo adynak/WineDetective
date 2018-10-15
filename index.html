@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="node_modules/angular-ui-grid/ui-grid.min.css" />
     <link rel="stylesheet" href="node_modules/angular-material/angular-material.css">
+    <link rel="stylesheet" href="node_modules/angularjs-toaster/toaster.css">    
 
     <script src="node_modules/angular/angular.min.js"></script>
     <script src="node_modules/angular-route/angular-route.min.js"></script>
@@ -25,7 +26,8 @@
     <script src="node_modules/angular-messages/angular-messages.js"></script>
     <script src="node_modules/angular-material/angular-material.js"></script>
     <script src="node_modules/checklist-model/checklist-model.js"></script>
-    <script src="node_modules/lodash/lodash.min.js"></script>    
+    <script src="node_modules/lodash/lodash.min.js"></script>  
+    <script src="node_modules/angularjs-toaster/toaster.js"></script>  
 
     <!-- application modules -->
     <script src="i18n/en_US.js"></script>
@@ -48,6 +50,17 @@
 </head>
 
 <body style="margin:10px; padding:10px">
+
+    <toaster-container 
+        toaster-options="
+            {
+                'type': 'success',
+                'time-out': 3000, 
+                'position-class': 'toast-bottom-right',
+                'close-button':true
+            }
+        ">
+    </toaster-container>
 
     <div class="wineDetective">
         Wine Detective

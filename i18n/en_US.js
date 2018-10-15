@@ -20,7 +20,10 @@ var txtLogin = {
     btnRegister: 'Register',
     btnLogout: 'Logout',
     replyTo: 'adynak@gmail.com',
-    appDomain: 'noreply.com'
+    appDomain: 'noreply.com',
+    credentialsValid: 'You are now logged in.',
+    credentialsInvalid: 'The email or password you have entered is invalid.',
+    loginError: "Maybe you just don't belong here."
 };
 
 var txtTabNames = [

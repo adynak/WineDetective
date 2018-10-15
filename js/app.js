@@ -13,7 +13,8 @@ var wineDetective = angular.module('wineDetective',
             'ui.grid.cellNav',
             // 'ngClickCopy',
             'ngMaterial', 
-            'ngMessages'
+            'ngMessages',
+            'toaster'
   ]);
 
 
