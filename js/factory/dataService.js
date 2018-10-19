@@ -9,8 +9,46 @@ wineDetective.factory("Data", ['$http', '$q', '$rootScope',
                     member_type: 0
                 }
             },
-            showTabs: ''
+            showTabs: '',
+            securityInfo : {
+                schema: null,
+                dbPass: null,
+                pgPort: null,
+                stop: true
+            }
         };
+
+
+        var setSecurityInfo = function(securityInfo){
+            localStorage.setItem('winedetective_schema', securityInfo.schema);
+            localStorage.setItem('winedetective_dpPass', securityInfo.dbPass);
+            localStorage.setItem('winedetective_pgPort', securityInfo.pgPort);            
+            factoryVariables.securityInfo = securityInfo;
+        }
+
+        var getSecurityInfo = function(){
+            if (factoryVariables.securityInfo.schema == null || factoryVariables.securityInfo.dbPass == null || factoryVariables.securityInfo.pgPort == null){
+                factoryVariables.securityInfo.schema = localStorage.getItem('winedetective_schema');
+                factoryVariables.securityInfo.dbPass = localStorage.getItem('winedetective_dpPass');
+                factoryVariables.securityInfo.pgPort = localStorage.getItem('winedetective_pgPort');
+                if (factoryVariables.securityInfo.schema !== null && factoryVariables.securityInfo.dbPass !== null && factoryVariables.securityInfo.pgPort !== null){
+                    factoryVariables.securityInfo.stop = false;
+                }
+            }
+            return factoryVariables.securityInfo;
+        }        
+
+        var clearSecurityInfo = function(){
+            localStorage.removeItem('winedetective_schema');
+            localStorage.removeItem('winedetective_dpPass');
+            localStorage.removeItem('winedetective_pgPort');
+
+            factoryVariables.securityInfo.schema = '';
+            factoryVariables.securityInfo.dbPass = '';
+            factoryVariables.securityInfo.pgPort = '';
+            factoryVariables.securityInfo.stop = 'true';
+            factoryVariables.showTabs = false;
+        }
 
         var setVarietalCategoryList = function(){
             factoryVariables.varietalCategoryList = [
@@ -93,9 +131,10 @@ wineDetective.factory("Data", ['$http', '$q', '$rootScope',
         var validateCredentials = function(member){
             var qObject = $q.defer();
             var params = {
+                task: 'validate',                
                 email: member.email,
                 password: member.password,
-                task: 'validate'
+                securityInfo: getSecurityInfo()
             };
             $http({
                 method: 'POST',
@@ -116,7 +155,8 @@ wineDetective.factory("Data", ['$http', '$q', '$rootScope',
             var qObject = $q.defer();
             var params = {
                 task: 'getSelectedVarietal',
-                varietalName : varietalName
+                varietalName : varietalName,
+                securityInfo: getSecurityInfo()
             };
             $http({
                 method: 'POST',
@@ -136,7 +176,8 @@ wineDetective.factory("Data", ['$http', '$q', '$rootScope',
         var init = function(member){
             var qObject = $q.defer();
             var params = {
-                task: 'init'
+                task: 'init',
+                securityInfo: getSecurityInfo()
             };
             $http({
                 method: 'POST',
@@ -156,7 +197,8 @@ wineDetective.factory("Data", ['$http', '$q', '$rootScope',
         var getAllVarietals = function(bottle){
             var qObject = $q.defer();
             var params = {
-                task: 'getAllVarietals'
+                task: 'getAllVarietals',
+                securityInfo: getSecurityInfo()
             };
 
             $http({
@@ -178,7 +220,8 @@ wineDetective.factory("Data", ['$http', '$q', '$rootScope',
             var qObject = $q.defer();
             var params = {
                 task: 'addBottle',
-                bottle: bottle
+                bottle: bottle,
+                securityInfo: getSecurityInfo()
             };
 
             $http({
@@ -199,7 +242,8 @@ wineDetective.factory("Data", ['$http', '$q', '$rootScope',
         var getInventory = function(){
             var qObject = $q.defer();
             var params = {
-                task: 'getInventory'
+                task: 'getInventory',
+                securityInfo: getSecurityInfo()
             };
 
             $http({
@@ -236,7 +280,10 @@ wineDetective.factory("Data", ['$http', '$q', '$rootScope',
             setAvaCategoryList: setAvaCategoryList,
             getAvaCategoryList: getAvaCategoryList,
             addBottle: addBottle,
-            getInventory: getInventory
+            getInventory: getInventory,
+            setSecurityInfo: setSecurityInfo,
+            getSecurityInfo: getSecurityInfo,
+            clearSecurityInfo: clearSecurityInfo
         };
     }
 ]);

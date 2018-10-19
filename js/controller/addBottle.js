@@ -1,5 +1,5 @@
-wineDetective.controller('addBottleController', ['$scope', 'Data', '$location', '$http', '$filter',
-    function($scope, Data, $location, $http, $filter) {
+wineDetective.controller('addBottleController', ['$scope', 'Data', '$location', '$http', '$filter', 'toaster',
+    function($scope, Data, $location, $http, $filter, toaster) {
 
 		$scope.prompts = txtAddBottle;
 
@@ -53,6 +53,7 @@ wineDetective.controller('addBottleController', ['$scope', 'Data', '$location', 
 
 	    	var newItem = {};
 	    	var data = '';
+	    	var duplicateError;
 	    	newItem.description  = bottle.addMe;
 	    	newItem.winecategory = bottle.winecategory;
 
@@ -72,9 +73,10 @@ wineDetective.controller('addBottleController', ['$scope', 'Data', '$location', 
 			if (found.length) {
             	for (var cnt = 0 ; cnt < found.length ; cnt ++){
                 	if (found[cnt].description.toLowerCase() == newItem.description.toLowerCase()){
-                    	$scope.addMessage = newItem.description + ' is a duplicate of ' + found[cnt].description;
+						duplicateError = newItem.description + ' is a duplicate of ' + found[cnt].description;
                     	$scope.bottle.addMe = null;
                     	uniqueItem = false;
+						toaster.pop('error', "", duplicateError, 3000, 'trustedHtml');
 	                    break;
     	            }
         	    }
@@ -173,7 +175,6 @@ wineDetective.controller('addBottleController', ['$scope', 'Data', '$location', 
 
 	    $scope.processForm = function(bottle){
 	    	console.log(bottle);
-	    	debugger;
 	    	$scope.modalShowAddBin = false;
 
 			Data.addBottle(bottle).then(function(results) {

@@ -22,6 +22,7 @@ wineDetective.config(['$routeProvider', '$locationProvider',
   function($routeProvider, $locationProvider) {
 
     document.title = standards.productName;
+    document.brand = standards.productName;
 
     $routeProvider.
         when('/login', 
@@ -65,7 +66,26 @@ wineDetective.config(['$routeProvider', '$locationProvider',
             templateUrl: 'wineDetective/view/inventory.html',
             controller: 'inventoryController'
           }).
+          when('/getSecurity',
+          {
+            templateUrl: 'wineDetective/view/security.html',
+            controller: 'securityController'
+          }).
+          when('/settings',
+          {
+            templateUrl: 'wineDetective/view/settings.html',
+            controller: 'settingsController'
+          }).
         otherwise({redirectTo: '/login'});
         
         $locationProvider.html5Mode(true);
-}]);
+
+}]).run(function($rootScope, $location, Data) {
+    $rootScope.$on("$routeChangeStart", function(event, next, current) {
+        var securityInfo = Data.getSecurityInfo();
+        if (securityInfo.stop){
+            $location.path("/getSecurity");
+            next.templateUrl = 'wineDetective/view/security.html';
+        }
+    });
+});

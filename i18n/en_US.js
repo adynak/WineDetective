@@ -14,8 +14,20 @@ var txtVintage = {
 	pageTitle: 'Vintage'
 };
 
+var txtSecurity = {
+    required: true,
+    schema: 'Schema Name',
+    dbPass: 'Database Password',
+    pgPort: 'Database Listen Port',
+    btnSubmit: 'Save',
+    errSchemaRequired: 'Scnema Name is Required',
+    errDbPassRequired: 'Database Password is Requried',
+    errPgPortRequired: 'Database Listen Port is Requried',    
+    saveSecurity: 'Database Configuration Saved.',
+    saveSecurityFailed: "That Didn't Work.  Try Again or Close This WebPage."
+};
+
 var txtLogin = {
-    brandName: 'Cin Cin!',
     btnLogin: 'Login',
     btnRegister: 'Register',
     btnLogout: 'Logout',
@@ -23,7 +35,15 @@ var txtLogin = {
     appDomain: 'noreply.com',
     credentialsValid: 'You are now logged in.',
     credentialsInvalid: 'The email or password you have entered is invalid.',
-    loginError: "Maybe you just don't belong here."
+    loginError: "Maybe you just don't belong here.",
+    email: 'email',
+    password: 'password'
+};
+
+var txtSettings = {
+    pageTitle: 'Settings',
+    resetDatabaseConnection: 'Reset Database Connection',
+    resetDatabaseConnectionTooltip: 'This option resets the database connection schema, database password and listen port.'
 };
 
 var txtTabNames = [
@@ -50,6 +70,11 @@ var txtTabNames = [
     { 
       link : 'inventory',
       label : 'Inventory',
+      type : 'admin'
+    },
+    { 
+      link : 'settings',
+      label : 'Settings',
       type : 'admin'
     }
 ]; 

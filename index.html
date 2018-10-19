@@ -40,7 +40,10 @@
     <script src="js/controller/vintage.js"></script>
     <script src="js/controller/wineGrid.js"></script>
     <script src="js/controller/addBottle.js"></script>
-    <script src="js/controller/inventory.js"></script>    
+    <script src="js/controller/inventory.js"></script> 
+    <script src="js/controller/security.js"></script>
+    <script src="js/controller/brand.js"></script>
+    <script src="js/controller/settings.js"></script>
 
     <script src="js/factory/dataService.js"></script>
 
@@ -62,8 +65,8 @@
         ">
     </toaster-container>
 
-    <div class="wineDetective">
-        Wine Detective
+    <div class="wineDetective" ng-controller="brandController">
+        {{prompts.productName}}
     </div>
 
     <div class="alert-heading">

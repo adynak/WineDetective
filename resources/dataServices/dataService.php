@@ -5,9 +5,9 @@ $debug = true ;
 
 $data = json_decode(file_get_contents("php://input"));
 
-$dbSchema = 'winedetective';
-$dbPass   = 'Ad17934!';
-$pgPort   = 5432;
+$dbSchema = $data->securityInfo->schema;
+$dbPass   = $data->securityInfo->dbPass;
+$pgPort   = $data->securityInfo->pgPort;
 
 $conn_string = "host=127.0.0.1 port=$pgPort dbname=postgres user=postgres password=$dbPass";
 $conn = pg_connect($conn_string);
@@ -77,10 +77,11 @@ else if ($data->task == 'addBottle') {
 
 else if ($data->task == 'init') {
 	// rebuild tables and views based on the bottle table
-	$debug = false;
+
 	$sql  = '';
-	$sql .= 'SELECT  winedetective.build_varietal();';
+	$sql .= 'SELECT winedetective.build_varietal();';
 	$result = pg_query($conn, $sql);
+
 }
 
 else if ($data->task == 'getInventory') {
@@ -156,9 +157,11 @@ else if ($data->task == 'validate') {
 if ($debug) {
 	fwrite($fp , 'task = ' . print_r($data->task,1));
 	fwrite($fp , "\n");
-	fwrite($fp , $sql);
+	fwrite($fp , 'sql = ' . $sql);
 	fwrite($fp , "\n");
 	fwrite($fp , $json);
+	fwrite($fp , "\n");
+	fwrite($fp , print_r($data->securityInfo,1));
 	fwrite($fp , "\n");
 
 
