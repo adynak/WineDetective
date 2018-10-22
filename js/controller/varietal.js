@@ -1,7 +1,7 @@
 wineDetective.controller('varietalController', ['$scope', 'Data', '$location',
     function($scope, Data, $location) {
 
-      $scope.pageTitle = txtVarietals.pageTitle;
+      $scope.prompts = txtVarietals;
 
       var tabLink = Data.getTab().link;
 

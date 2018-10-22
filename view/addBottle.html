@@ -120,7 +120,7 @@
         </div>
 
         <div class="col-xs-6">
-           <button type="button" ng-click="getStorageBin(bottle)" class="btn btn-success btn-block">
+           <button type="button" ng-click="getStorageBin(bottle)" class="btn alert-tabHeading btn-block">
                <span class="glyphicon glyphicon-ok"></span> {{prompts.bins}}
            </button>
         </div>
@@ -139,7 +139,7 @@
 <!-- ********************************* -->
 <div>
   <modal-dialog show='modalShowAddBin' width='400px' txtButtonDone='{{prompts.btnCancel}}'>
-    <h4 class="alert alert-info">{{bottleDescription}}</h4>
+    <h4 class="alert alert-tabHeading">{{bottleDescription}}</h4>
     {{prompts.whereDoesItGo}}
     <br><br>
     <div class="form-group row" ng-repeat="inventoryItem in addToInventory">
@@ -177,9 +177,16 @@
 <!-- ********************************* -->
 <div>
     <modal-dialog show='modalShowAddNew' width='800px' txtButtonDone='{{prompts.btnCancel}}'>
-        <h4 class="alert alert-info">{{modalAddNewHeading}}</h4>{{modalAddNewInstructions}}
-        <br>
-        <br>
+
+      <div class="alert-tabHeading">
+        <button type="button" class="close glyphicon glyphicon-remove closeX" data-dismiss="dialog" ng-click="processNewThing(bottle)">
+            <span class="sr-only">Close</span>
+        </button>
+        <h4>{{modalAddNewHeading}}</h4>
+      </div>
+      {{modalAddNewInstructions}}
+      <br>
+      <br>
 
         <div>
             <ul class="maintenanceListUnorderedList">
@@ -220,17 +227,20 @@
 
 
         <div class="centerDoneButton">
-          <button ng-disabled="checkInputs(bottle)" type="button" ng-click="addNewThing(bottle)" class="btn btn-success btn-block col-xs-6">
+          <button ng-disabled="checkInputs(bottle)"
+                  type="button" 
+                  ng-click="addNewThing(bottle)" 
+                  class="btn alert-tabHeading btn-block col-xs-6">
               <span class="glyphicon glyphicon-ok"></span> {{prompts.modalAddThing}}
           </button>
         </div>
-        <br>
+<!--         <br>
         <div class="centerDoneButton">
             <button type="button" ng-click="processNewThing(bottle)" class="btn btn-success btn-block col-xs-6">
                 <span class="glyphicon glyphicon-ok"></span> {{prompts.modalDone}}
             </button>
         </div>
-
+ -->
     </modal-dialog>
 </div>
 <!-- ********************************* -->

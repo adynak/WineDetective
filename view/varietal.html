@@ -3,9 +3,9 @@
 
         <br>
 
-        <div class="alert-tabHeading">{{ pageTitle }}</div>
+        <div class="alert-tabHeading">{{ prompts.pageTitle }}</div>
 
-        <div class="content" style="font-weight: bold;font-size: 125%;">Red
+        <div class="content" style="font-weight: bold;font-size: 125%;">{{prompts.redWine}}
             <ul style="list-style-type:none;font-weight: normal;font-size: 85%;">
                 <li ng-repeat="red in redWines" ng-click="setSelected(red)">{{red.name}}</li>
             </ul>
@@ -13,7 +13,7 @@
 
         <div class="hspacer">&nbsp;</div>
 
-        <div class="content" style="font-weight: bold;font-size: 125%;">White
+        <div class="content" style="font-weight: bold;font-size: 125%;">{{prompts.whiteWine}}
             <ul style="list-style-type:none;font-weight: normal;font-size: 85%;">
                 <li ng-repeat="white in whiteWines" ng-click="setSelected(white)">{{white.name}}</li>
             </ul>
@@ -21,7 +21,7 @@
 
         <div class="hspacer">&nbsp;</div>
 
-        <div class="content" style="font-weight: bold;font-size: 125%;">Other Varietals
+        <div class="content" style="font-weight: bold;font-size: 125%;">{{prompts.otherWine}}
             <ul style="list-style-type:none;font-weight: normal;font-size: 85%;">
                 <li ng-repeat="wine in otherWines" ng-click="setSelected(wine)">{{wine.name}}</li>
             </ul>

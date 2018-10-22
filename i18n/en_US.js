@@ -3,7 +3,10 @@ var standards = {
 }
 
 var txtVarietals = {
-	pageTitle: 'Varietals'
+	pageTitle: 'Varietals',
+  redWine: 'Red',
+  whiteWine: 'White',
+  otherWine: 'Other'
 };
 
 var txtAva = {

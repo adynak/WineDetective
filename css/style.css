@@ -45,7 +45,7 @@ body {
 .alert-tabHeading {
   color: #fff;
   background-color: #aec0ab;
-  border-color: #7db0b8;
+  border-color: #aec0ab;
   text-align: center;
   /*height: 24px;*/
   padding: 2px;
@@ -151,6 +151,10 @@ body {
 
 .moveUp {
   margin-top : -5px;
+}
+
+.closeX {
+ padding: 8px 5px 0px 0px !important;
 }
 
 

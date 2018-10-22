@@ -14,8 +14,7 @@ $conn = pg_connect($conn_string);
 
 
 if ($data->task == 'getAllVarietals') {
-  $debug = false;
-  $json = '{ "red": [{"name": "Cabernet Franc"},{"name": "Cabernet Sauvignon"}],"white": [{"name": "Chardonnay"},{"name": "Sauvignon Blanc"}],"other": [{"name": "Champagne"},{"name": "Port"},{"name": "Rose"}]}';
+	$debug = false;
 
 	$sql  = '';
 	$sql .= 'SELECT varietals FROM winedetective.varietal_by_winecategory;';
@@ -37,7 +36,7 @@ if ($data->task == 'getAllVarietals') {
 
 else if ($data->task == 'addBottle') {
 	// rebuild tables and views based on the bottle table
-	$debug = true;
+	$debug = false;
 
 	$sqlInsertValues = array();
 
@@ -59,8 +58,6 @@ else if ($data->task == 'addBottle') {
 		array_push($sqlInsertValues,$data->bottle->ava->description);
 		array_push($sqlInsertValues,$data->bottle->price);
 		array_push($sqlInsertValues,$data->bottle->aka);
-
-		fwrite($fp , print_r($sqlInsertValues,1));
 	
 		$result = pg_execute($conn, "insertBottle", $sqlInsertValues);
 
@@ -99,10 +96,9 @@ else if ($data->task == 'getInventory') {
 }
 
 else if ($data->task == 'getSelectedVarietal') {
-
+	$debug = false;
 	$myArray = array();
 
-	$debug = false;
 	$sql  = '';
 	$sql .= "SELECT  * from winedetective.get_smart('$data->varietalName');";
 	$result = pg_query($conn, $sql);
@@ -137,22 +133,6 @@ else if ($data->task == 'validate') {
 		echo 'The email or password you have entered is invalid.';
 	}
 }
-	// $sql  = '';
-	// $sql .= 'SELECT info FROM winedetective.orders;';
-	// $result = pg_query($conn, $sql);
-	// $rows = pg_num_rows($result);
-	// $json = '';
-
-	// if (!$result) {
-	// 	echo "Error: " . $sql . '<br>' ;
-	// } else {
- //        while ($row = pg_fetch_assoc($result)) {
- //        	echo $row['info'] . '<br>';
- //        	$json .= $row['info'];
- //        }
- //        $json = str_replace("}{", ",", $json);
-	// 	echo $json;
-	// }
 
 if ($debug) {
 	fwrite($fp , 'task = ' . print_r($data->task,1));
@@ -163,8 +143,6 @@ if ($debug) {
 	fwrite($fp , "\n");
 	fwrite($fp , print_r($data->securityInfo,1));
 	fwrite($fp , "\n");
-
-
 
 	$debug = false ;
 }
